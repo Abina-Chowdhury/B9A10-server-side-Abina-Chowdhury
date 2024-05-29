@@ -39,6 +39,30 @@ async function run() {
             }
         });
 
+        // Handle POST request to insert an item
+        app.post('/items', async (req, res) => {
+            console.log('/items api post korteci');
+
+            const item = req.body;
+            try {
+                const result = await itemCollection.insertOne(item);
+                console.log(result);
+                res.send(result);
+            } catch (error) {
+                console.log(error);
+                res.status(500).send({ message: "Failed to insert item", error });
+            }
+
+        });
+
+        app.get('/items/:id', async (req, res) => {
+            console.log('/items/:id api get korteci');
+
+            const singleId = req.params;
+            const singleData = await itemCollection.findOne({ _id: new ObjectId(singleId) });
+            res.send(singleData);
+        })
+
        
 
 

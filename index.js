@@ -27,6 +27,20 @@ async function run() {
         const database = client.db("itemsDB");
         const itemCollection = database.collection('items');
 
+        // Handle GET request to fetch items
+        app.get('/items', async (req, res) => {
+            console.log('/items api get korteci');
+            try {
+                const cursor = await itemCollection.find().toArray();
+                res.json(cursor);
+            } catch (error) {
+                console.log(error);
+                res.status(500).send({ message: "Failed to fetch items", error });
+            }
+        });
+
+       
+
 
 
         // Send a ping to confirm a successful connection

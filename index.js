@@ -63,8 +63,15 @@ async function run() {
             res.send(singleData);
         })
 
-       
+        app.delete('/items/:id', async (req, res) => {
+            console.log('/items/:id api delete korteci');
 
+            const singleId = req.params;
+            const singleDataDelete = await itemCollection.deleteOne({ _id: new ObjectId(singleId) });
+            res.send(singleDataDelete);
+        })
+
+      
 
 
         // Send a ping to confirm a successful connection

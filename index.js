@@ -71,7 +71,26 @@ async function run() {
             res.send(singleDataDelete);
         })
 
-      
+        app.put('/items/:id', async (req, res) => {
+            console.log('/items/:id api update korteci');
+            const singleId = req.params.id;
+            const updatedItem = req.body;
+            const singleDataUpdate = await itemCollection.updateOne(
+                { _id: new ObjectId(singleId) }, // filter
+                {
+                    $set: {
+                        ...updatedItem
+                    }
+                }
+            );
+            res.send({
+                success: true,
+                massage: `item with this id ${singleId} updated  successfully`,
+                data: singleDataUpdate
+
+            });
+        })
+
 
 
         // Send a ping to confirm a successful connection

@@ -24,7 +24,7 @@ async function run() {
         const database = client.db("itemsDB");
         const itemCollection = database.collection('items');
 
-        app.get('/items', async (req, res) => {
+        app.get('/api/items', async (req, res) => {
             try {
                 const cursor = await itemCollection.find().toArray();
                 res.json(cursor);
@@ -35,7 +35,7 @@ async function run() {
         });
 
        
-        app.post('/items', async (req, res) => {
+        app.post('/api/items', async (req, res) => {
             const item = req.body;
             try {
                 const result = await itemCollection.insertOne(item);
@@ -46,19 +46,19 @@ async function run() {
             }
         });
 
-        app.get('/items/:id', async (req, res) => {
+        app.get('/api/items/:id', async (req, res) => {
             const singleId = req.params;
             const singleData = await itemCollection.findOne({ _id: new ObjectId(singleId) });
             res.send(singleData);
         })
 
-        app.delete('/items/:id', async (req, res) => {
+        app.delete('/api/items/:id', async (req, res) => {
             const singleId = req.params;
             const singleDataDelete = await itemCollection.deleteOne({ _id: new ObjectId(singleId) });
             res.send(singleDataDelete);
         })
 
-        app.put('/items/:id', async (req, res) => {
+        app.put('/api/items/:id', async (req, res) => {
             const singleId = req.params.id;
             const updatedItem = req.body;
             const singleDataUpdate = await itemCollection.updateOne(

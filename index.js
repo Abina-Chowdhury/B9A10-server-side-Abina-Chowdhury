@@ -5,7 +5,9 @@ const app = express();
 const port = 5000;
 
 
-app.use(cors());
+app.use(cors({
+    origin : ['https://drawing-and-painting.netlify.app']
+}));
 app.use(express.json());
 
 const uri = "mongodb+srv://abina:HIiGGA6OIoZs8G3Y@cluster0.948ms7y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
